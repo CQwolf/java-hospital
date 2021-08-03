@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offcn.dao.RegisterDao">
+
+    <!--    查询全部-->
+    <select id="find" resultType="register">
+        select * from register
+        <where>
+            <if test="rid != null and rid != ''">
+                and rid = #{rid}
+            </if>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="department != 0">
+                and department = #{department}
+            </if>
+        </where>
+    </select>
+
+    <!--    批量删除功能-->
+    <delete id="delBatch">
+        delete from register where rid in
+        <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
+
+</mapper>

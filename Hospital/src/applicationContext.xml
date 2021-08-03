@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                          http://www.springframework.org/schema/beans/spring-beans.xsd
+                          http://www.springframework.org/schema/context
+                          http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+<!--    整合mybatis-->
+<!--    加载外部的 jdbc.properties-->
+    <context:property-placeholder location="classpath:jdbc.properties" />
+
+<!--    配置数据源连接池-->
+    <bean class="com.alibaba.druid.pool.DruidDataSource" id="dataSource">
+<!--        数据库连接语句-->
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+<!--    管理数据库连接 sqlsession-->
+    <bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sessionFactoryBean">
+<!--        注入连接池-->
+        <property name="dataSource" ref="dataSource"></property>
+<!--        加载mybatis核心配置文件-->
+        <property name="configLocation" value="classpath:mybatis-cfg.xml"></property>
+    </bean>
+
+<!--    扫描dao接口，mapper映射 dao的xml文件-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+<!--        注入sqlSession会话-->
+        <property name="sqlSessionFactoryBeanName" value="sessionFactoryBean"></property>
+<!--        加载mybatis核心配置文件-->
+        <property name="basePackage" value="com.offcn.dao"></property>
+    </bean>
+
+    <!--
+        Spring中有三个核心概念：IOC、DI、AOP
+        IOC：控制反转
+        DI: 依赖注入
+        Spring最大的好处，可以降低项目的耦合度，把解耦进行到底。Spring是低侵入式的框架。想用哪些技术，只需要导入对应的依赖即可。
+    -->
+
+</beans>

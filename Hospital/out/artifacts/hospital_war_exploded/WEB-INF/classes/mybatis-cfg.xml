@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+<!--    导入外部jdbc的配置源文件-->
+<!--    <properties resource="jdbc.properties" />-->
+<!--    把mybatis生成的sql语句打印到控制台-->
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+<!--    配置别名
+        com.offcn.entity.User    -> user
+        com.offcn.entity.User    -> User
+        com.offcn.entity.User    -> uSer
+-->
+    <typeAliases>
+        <package name="com.offcn.entity"/>
+    </typeAliases>
+<!--    配置jdbc数据库连接-->
+<!--    <environments default="p1">-->
+<!--        <environment id="p1">-->
+<!--            <transactionManager type="jdbc"></transactionManager>-->
+<!--            <dataSource type="pooled">-->
+<!--                <property name="driver" value="${jdbc.driver}"/>-->
+<!--                <property name="url" value="${jdbc.url}"/>-->
+<!--                <property name="username" value="${jdbc.username}"/>-->
+<!--                <property name="password" value="${jdbc.password}"/>-->
+<!--            </dataSource>-->
+<!--        </environment>-->
+<!--    </environments>-->
+
+
+<!--    <mappers>-->
+<!--        <package name="com.offcn.dao"/>-->
+<!--    </mappers>-->
+
+</configuration>
+  

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.offcn.dao.DoctorDao">
+
+    <!-- 查询全部 -->
+    <select id="find" resultType="doctor">
+        select * from doctor
+        <where>
+            <if test="name != null and name != ''">
+                and name like concat('%',#{name},'%')
+            </if>
+            <if test="department != 0">
+                and department = #{department}
+            </if>
+        </where>
+    </select>
+
+    <!-- 批量删除功能 -->
+    <delete id="delBatch">
+        delete from doctor where did in
+        <foreach collection="list" item="id" open="(" separator="," close=")">#{id}</foreach>
+    </delete>
+
+</mapper>
